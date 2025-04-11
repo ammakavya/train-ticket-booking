@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Typography, TextField, Chip, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { green } from '@mui/material/colors';
+
 
 const TOTAL_SEATS = 80;
 const SEATS_PER_ROW = 7;
-const LAST_ROW_SEATS = 3;
 
 const generateInitialSeats = () => {
   return Array.from({ length: TOTAL_SEATS }, (_, i) => ({
     seatNumber: i + 1,
     status: 'available',
-    bookedBy: null, // store username
+    bookedBy: null, 
   }));
 };
 
@@ -74,13 +73,13 @@ const SeatGrid = () => {
      
 
       if (startIdx !== -1) {
-        const bookedNow = []; // ✅ Add this
+        const bookedNow = []; 
         for (let k = startIdx; k < startIdx + count; k++) {
           newSeats[i + k].status = 'booked';
           newSeats[i + k].bookedBy = currentUser;
-          bookedNow.push(newSeats[i + k].seatNumber); // ✅ Track newly booked
+          bookedNow.push(newSeats[i + k].seatNumber); 
         }
-        setLastBookedSeats(bookedNow); // ✅ Save last batch
+        setLastBookedSeats(bookedNow); 
         found = true;
         break;
       }
@@ -121,7 +120,7 @@ const SeatGrid = () => {
             Ticket Booking
           </Typography>
     
-          {/* Grid for Seats */}
+       
           <Box
             sx={{
               display: 'grid',
@@ -150,7 +149,7 @@ const SeatGrid = () => {
             ))}
           </Box>
     
-          {/* Last Row */}
+       
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: 2 }}>
             {seats.slice(77).map((seat) => (
               <Box
@@ -172,14 +171,14 @@ const SeatGrid = () => {
             ))}
           </Box>
     
-          {/* Summary */}
+     
           <Box sx={{ marginTop: 2, display: 'flex', gap: 4 }}>
             <Typography  variant='h6' sx={{backgroundColor:'yellow', borderRadius:2, padding:1}} >Booked Seats = {bookedSeats}</Typography>
             <Typography  variant='h6' sx={{backgroundColor: 'lightgreen',borderRadius:2,  padding:1}} >Available Seats = {availableSeats}</Typography>
           </Box>
         </Box>
     
-        {/* Right: Book Form */}
+       
         <Box sx={{ minWidth: 250 ,margin:10 }}>
           <Typography variant="h6" gutterBottom>
             Book Seats
