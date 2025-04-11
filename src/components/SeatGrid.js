@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Typography, TextField, Chip, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { green } from '@mui/material/colors';
 
 const TOTAL_SEATS = 80;
 const SEATS_PER_ROW = 7;
@@ -104,100 +105,113 @@ const SeatGrid = () => {
   const availableSeats = seats.filter((s) => s.status === 'available').length;
   const bookedSeats = seats.filter((s) => s.status === 'booked').length;
 
-  return (
-    <Box sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Typography variant="h4" gutterBottom>
-        Ticket Booking
-      </Typography>
-
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: `repeat(${SEATS_PER_ROW}, 1fr)` ,
-          gap: '10px',
-          maxWidth: 400,
-        }}
-      >
-        {seats.slice(0, 77).map((seat) => (
+ 
+    return (
+      <Box sx={{ display: 'flex', padding: 4, justifyContent: 'center', gap: 6 }}>
+       
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography variant="h4" gutterBottom>
+            Ticket Booking
+          </Typography>
+    
+          {/* Grid for Seats */}
           <Box
-            key={seat.seatNumber}
             sx={{
-              width: 40,
-              height: 40,
-              backgroundColor: getSeatColor(seat),
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 2,
-              cursor: seat.status === 'available' ? 'pointer' : 'not-allowed',
+              display: 'grid',
+              gridTemplateColumns: `repeat(${SEATS_PER_ROW}, 1fr)`,
+              gap: '10px',
+              maxWidth: 400,
             }}
-            onClick={seat.status === 'available' ? () => handleSeatSelect(seat.seatNumber) : undefined}
           >
-            {seat.seatNumber}
+            {seats.slice(0, 77).map((seat) => (
+              <Box
+                key={seat.seatNumber}
+                sx={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: getSeatColor(seat),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 2,
+                  cursor: seat.status === 'available' ? 'pointer' : 'not-allowed',
+                }}
+                onClick={seat.status === 'available' ? () => handleSeatSelect(seat.seatNumber) : undefined}
+              >
+                {seat.seatNumber}
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
-
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: 2 }}>
-        {seats.slice(77).map((seat) => (
-          <Box
-            key={seat.seatNumber}
-            sx={{
-              width: 40,
-              height: 40,
-              backgroundColor: getSeatColor(seat),
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 2,
-              cursor: seat.status === 'available' ? 'pointer' : 'not-allowed',
-            }}
-            onClick={seat.status === 'available' ? () => handleSeatSelect(seat.seatNumber) : undefined}
-          >
-            {seat.seatNumber}
+    
+          {/* Last Row */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: 2 }}>
+            {seats.slice(77).map((seat) => (
+              <Box
+                key={seat.seatNumber}
+                sx={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: getSeatColor(seat),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 2,
+                  cursor: seat.status === 'available' ? 'pointer' : 'not-allowed',
+                }}
+                onClick={seat.status === 'available' ? () => handleSeatSelect(seat.seatNumber) : undefined}
+              >
+                {seat.seatNumber}
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
-
-      <Box sx={{ marginTop: 4, textAlign: 'center' }}>
-        <Typography variant="h6" gutterBottom>
-          Book Seats
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', marginBottom: 1 }}>
-          {selectedSeats.map((seatNum) => (
-            <Chip key={seatNum} label={seatNum} color="warning" />
-          ))}
+    
+          {/* Summary */}
+          <Box sx={{ marginTop: 2, display: 'flex', gap: 4 }}>
+            <Typography  variant='h6' sx={{backgroundColor:'yellow', borderRadius:2, padding:1}} >Booked Seats = {bookedSeats}</Typography>
+            <Typography  variant='h6' sx={{backgroundColor: 'lightgreen',borderRadius:2,  padding:1}} >Available Seats = {availableSeats}</Typography>
+          </Box>
         </Box>
-
-        <TextField
-          label="Enter Seat Count"
-          type="number"
-          size="small"
-          value={seatCount}
-          onChange={(e) => setSeatCount(e.target.value)}
-          sx={{ marginRight: 2, width: 100 }}
+    
+        {/* Right: Book Form */}
+        <Box sx={{ minWidth: 250 ,margin:10 }}>
+          <Typography variant="h6" gutterBottom>
+            Book Seats
+          </Typography>
+    
+          <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', marginBottom: 1 }}>
+  {/* {seats
+    .filter((s) => s.status === 'booked' && s.bookedBy === currentUser)
+    .map((seat) => (
+      <Chip key={seat.seatNumber} label={seat.seatNumber} color="info" />
+    ))} */}
+</Box>
+    
+          <TextField
+            label="Enter number"
+            type="number"
+            size="small"
+            value={seatCount}
+            onChange={(e) => setSeatCount(e.target.value)}
+            sx={{ marginBottom: 2, width: '40%' }}
+          />
+          <Button variant="contained" onClick={handleBookSeats}  sx={{ marginBottom: 1 , width:'100px' , marginLeft:1 }}>
+            Book
+          </Button>
+          <Button variant="contained" onClick={handleReset} sx={{width:'400px'}}>
+            Reset Booking
+          </Button>
+        </Box>
+    
+        <Snackbar
+          open={snackOpen}
+          autoHideDuration={2000}
+          onClose={() => setSnackOpen(false)}
+          message="Seat successfully booked"
         />
-        <Button variant="contained" onClick={handleBookSeats}>
-          Book
-        </Button>
-        <Button variant="outlined" onClick={handleReset} sx={{ marginLeft: 2 }}>
-          Reset Booking
-        </Button>
       </Box>
-
-      <Box sx={{ marginTop: 2, display: 'flex', gap: 4 }}>
-        <Typography color="text.secondary">Booked Seats = {bookedSeats}</Typography>
-        <Typography color="text.secondary">Available Seats = {availableSeats}</Typography>
-      </Box>
-
-      <Snackbar
-        open={snackOpen}
-        autoHideDuration={2000}
-        onClose={() => setSnackOpen(false)}
-        message="Seat successfully booked"
-      />
-    </Box>
-  );
+    );
+    
+ 
 };
 
 export default SeatGrid;

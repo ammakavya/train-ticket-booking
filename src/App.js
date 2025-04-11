@@ -5,11 +5,16 @@ import SeatGrid from './components/SeatGrid';
 import { Typography } from '@mui/material';
 
 function App() {
+  const isLoggedIn = localStorage.getItem('currentUser');
+
   return (
     <div className="App">
-      <Typography variant='h6' sx={{justifyContent:'center',textAlign:'center'}}><Link to="/signup">SignUp</Link></Typography>
-      <Typography variant='h6' sx={{justifyContent:'center',textAlign:'center'}}><Link to="/login">Login</Link></Typography>
-      
+      {!isLoggedIn && (
+        <Typography variant='h6' sx={{ justifyContent: 'center', textAlign: 'center' }}>
+          <Link to="/signup">SignUp</Link> | <Link to="/login">Login</Link>
+        </Typography>
+      )}
+
       <Routes>
         <Route path="/" element={<SeatGrid />} />
         <Route path="/login" element={<Login />} />
@@ -18,4 +23,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
