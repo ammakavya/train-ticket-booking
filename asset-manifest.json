@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ammakavya/train-ticket-booking/static/css/main.e6c13ad2.css",
-    "main.js": "/ammakavya/train-ticket-booking/static/js/main.3b27fed9.js",
-    "static/js/453.50483f47.chunk.js": "/ammakavya/train-ticket-booking/static/js/453.50483f47.chunk.js",
-    "index.html": "/ammakavya/train-ticket-booking/index.html",
-    "main.e6c13ad2.css.map": "/ammakavya/train-ticket-booking/static/css/main.e6c13ad2.css.map",
-    "main.3b27fed9.js.map": "/ammakavya/train-ticket-booking/static/js/main.3b27fed9.js.map",
-    "453.50483f47.chunk.js.map": "/ammakavya/train-ticket-booking/static/js/453.50483f47.chunk.js.map"
+    "main.css": "/train-ticket-booking/static/css/main.e6c13ad2.css",
+    "main.js": "/train-ticket-booking/static/js/main.a72ebdfa.js",
+    "static/js/453.50483f47.chunk.js": "/train-ticket-booking/static/js/453.50483f47.chunk.js",
+    "index.html": "/train-ticket-booking/index.html",
+    "main.e6c13ad2.css.map": "/train-ticket-booking/static/css/main.e6c13ad2.css.map",
+    "main.a72ebdfa.js.map": "/train-ticket-booking/static/js/main.a72ebdfa.js.map",
+    "453.50483f47.chunk.js.map": "/train-ticket-booking/static/js/453.50483f47.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.3b27fed9.js"
+    "static/js/main.a72ebdfa.js"
   ]
 }
