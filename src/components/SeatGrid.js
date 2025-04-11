@@ -18,6 +18,8 @@ const generateInitialSeats = () => {
 const SeatGrid = () => {
   const [seats, setSeats] = useState(generateInitialSeats());
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const [lastBookedSeats, setLastBookedSeats] = useState([]);
+
   const [seatCount, setSeatCount] = useState(1);
   const [snackOpen, setSnackOpen] = useState(false);
   const navigate = useNavigate();
@@ -69,11 +71,16 @@ const SeatGrid = () => {
         }
       }
 
+     
+
       if (startIdx !== -1) {
+        const bookedNow = []; // ✅ Add this
         for (let k = startIdx; k < startIdx + count; k++) {
           newSeats[i + k].status = 'booked';
           newSeats[i + k].bookedBy = currentUser;
+          bookedNow.push(newSeats[i + k].seatNumber); // ✅ Track newly booked
         }
+        setLastBookedSeats(bookedNow); // ✅ Save last batch
         found = true;
         break;
       }
@@ -178,13 +185,13 @@ const SeatGrid = () => {
             Book Seats
           </Typography>
     
+        
           <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', marginBottom: 1 }}>
-  {/* {seats
-    .filter((s) => s.status === 'booked' && s.bookedBy === currentUser)
-    .map((seat) => (
-      <Chip key={seat.seatNumber} label={seat.seatNumber} color="info" />
-    ))} */}
+  {lastBookedSeats.map((seatNum) => (
+    <Chip key={seatNum} label={seatNum} color="info" />
+  ))}
 </Box>
+
     
           <TextField
             label="Enter number"
