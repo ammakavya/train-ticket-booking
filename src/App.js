@@ -7,6 +7,9 @@ import { Typography } from '@mui/material';
 function App() {
   return (
     <div className="App">
+      <Typography variant='h6' sx={{justifyContent:'center',textAlign:'center'}}><Link to="/signup">SignUp</Link></Typography>
+      <Typography variant='h6' sx={{justifyContent:'center',textAlign:'center'}}><Link to="/login">Login</Link></Typography>
+      
       <Routes>
         <Route path="/" element={<SeatGrid />} />
         <Route path="/login" element={<Login />} />
